@@ -1,120 +1,145 @@
-/* Reads window.SITE_CONFIG and updates every page. Vanilla JS, no dependencies. */
+/* Bazar Growth: site behaviour. Reads everything from window.SITE_CONFIG (config.js). */
 (function () {
+  "use strict";
   var C = window.SITE_CONFIG || {};
   var digits = function (v) { return String(v || "").replace(/\D/g, ""); };
-  var cc = digits(C.countryCode) || "91";
-  var phone = digits(C.phone), wa = digits(C.whatsapp);
-  var intl = function (n) { return n.length > 10 ? n : cc + n; };
-  var pretty = phone ? "+" + cc + " " + phone.slice(-10, -5) + " " + phone.slice(-5) : "";
-  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var phone = digits(C.phone), wa = digits(C.whatsapp), cc = digits(C.countryCode) || "91";
+  var fmt = function (n) { return n.length === 10 ? "+" + cc + " " + n.slice(0, 5) + " " + n.slice(5) : n; };
+  var q = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  // Brand
-  $$("[data-brand]").forEach(function (el) { el.textContent = C.brandName; });
-  $$("[data-tagline]").forEach(function (el) { el.textContent = C.tagline; });
-  $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
-  var t = document.title; if (C.brandName) { document.title = t; }
+  var showPhone = C.showPhoneAndWhatsapp !== false && (phone || wa);
+  var showForm = C.showEmailFormAndTestimonials !== false;
 
-  // Phone / WhatsApp
-  var showPW = C.showPhoneWhatsapp !== false;
-  $$("[data-only='phone']").forEach(function (el) { if (!showPW || !phone) el.classList.add("hidden"); });
-  $$("[data-only='wa']").forEach(function (el) { if (!showPW || !wa) el.classList.add("hidden"); });
-  $$("[data-phone]").forEach(function (el) { el.textContent = pretty; });
-  $$("[data-tel]").forEach(function (el) { el.setAttribute("href", "tel:+" + intl(phone)); });
-  $$("[data-wa]").forEach(function (el) {
-    var msg = el.getAttribute("data-wa-text") || "Hello " + C.brandName + ", I need help with my e-commerce seller account.";
-    el.setAttribute("href", "https://wa.me/" + intl(wa) + "?text=" + encodeURIComponent(msg));
-    el.setAttribute("target", "_blank"); el.setAttribute("rel", "noopener");
+  /* brand, tagline, year */
+  q('[data-cfg="brand"]').forEach(function (el) { el.textContent = C.brandName || "Bazar Growth"; });
+  q('[data-cfg="tagline"]').forEach(function (el) { el.textContent = C.tagline || ""; });
+  q('[data-cfg="year"]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
+
+  /* phone, whatsapp, email values */
+  q('[data-cfg="phone-text"]').forEach(function (el) { el.textContent = fmt(phone); });
+  q('[data-cfg="whatsapp-text"]').forEach(function (el) { el.textContent = fmt(wa); });
+  q('[data-cfg="email-text"]').forEach(function (el) { el.textContent = C.email || ""; });
+  q('[data-cfg-href="tel"]').forEach(function (el) { el.href = "tel:+" + cc + phone; });
+  q('[data-cfg-href="wa"]').forEach(function (el) {
+    var msg = el.getAttribute("data-wa-msg") || "Hello, I would like to know more about your e-commerce seller services.";
+    el.href = "https://wa.me/" + cc + wa + "?text=" + encodeURIComponent(msg);
+    el.target = "_blank"; el.rel = "noopener";
   });
+  q('[data-cfg-href="mail"]').forEach(function (el) { el.href = "mailto:" + (C.email || ""); });
 
-  // Email / forms / testimonials
-  var showEF = C.showEmailFormsTestimonials !== false;
-  $$("[data-only='email']").forEach(function (el) { if (!showEF || !C.email) el.classList.add("hidden"); });
-  $$("[data-only='forms']").forEach(function (el) { if (!showEF) el.classList.add("hidden"); });
-  $$("[data-only='testimonials']").forEach(function (el) { if (!showEF) el.classList.add("hidden"); });
-  $$("[data-mail]").forEach(function (el) { el.setAttribute("href", "mailto:" + C.email); });
-  $$("[data-email]").forEach(function (el) { el.textContent = C.email; });
+  /* visibility toggles (elements start hidden in HTML when they depend on a value) */
+  var setVis = function (el, ok) { el.hidden = !ok; el.style.display = ok ? "" : "none"; };
+  q('[data-show="phone"]').forEach(function (el) { setVis(el, showPhone && !!phone); });
+  q('[data-show="whatsapp"]').forEach(function (el) { setVis(el, showPhone && !!wa); });
+  q('[data-show="email"]').forEach(function (el) { setVis(el, showForm && !!C.email); });
+  q('[data-show="form"]').forEach(function (el) { setVis(el, showForm); });
+  q('[data-show="affiliate"]').forEach(function (el) { setVis(el, !!C.affiliateLink); });
+  q('[data-cfg-href="affiliate"]').forEach(function (el) { el.href = C.affiliateLink || "#"; el.target = "_blank"; el.rel = "noopener sponsored"; });
+  q('[data-cfg="affiliate-label"]').forEach(function (el) { el.textContent = C.affiliateLabel || ""; });
 
-  // Affiliate
-  $$("[data-only='affiliate']").forEach(function (el) { if (!C.affiliateLink) el.classList.add("hidden"); });
-  $$("[data-affiliate]").forEach(function (el) {
-    el.setAttribute("href", C.affiliateLink || "#"); el.setAttribute("target", "_blank");
-    el.setAttribute("rel", "sponsored noopener");
-  });
-  $$("[data-affiliate-label]").forEach(function (el) { el.textContent = C.affiliateLabel; });
-
-  // Mobile menu
-  var btn = document.getElementById("menu-btn"), menu = document.getElementById("mobile-menu");
-  if (btn && menu) btn.addEventListener("click", function () {
-    var open = menu.classList.toggle("hidden") === false;
-    btn.setAttribute("aria-expanded", open ? "true" : "false");
-  });
-
-  // Active nav link
-  var here = location.pathname.split("/").pop() || "index.html";
-  $$("[data-nav]").forEach(function (a) {
-    if (a.getAttribute("href") === here) { a.classList.add("text-amber-500"); a.setAttribute("aria-current", "page"); }
-  });
-
-  // W3Forms handling
-  $$("form[data-w3form]").forEach(function (form) {
-    var status = form.querySelector("[data-status]");
-    var say = function (msg, ok) {
-      if (!status) return; status.textContent = msg;
-      status.className = "mt-3 text-sm font-medium " + (ok ? "text-green-600" : "text-red-600");
-    };
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (!C.w3formsToken) {
-        say("The contact form is not activated yet. Please reach us on WhatsApp or phone instead.", false); return;
-      }
-      var fd = new FormData(form);
-      fd.append("access_key", C.w3formsToken);
-      fd.append("subject", "New enquiry from " + C.brandName + " website (" + document.title + ")");
-      fd.append("from_name", C.brandName + " Website");
-      var submit = form.querySelector("button[type=submit]"); if (submit) submit.disabled = true;
-      say("Sending your message...", true);
-      fetch("https://api.web3forms.com/submit", { method: "POST", body: fd })
-        .then(function (r) { return r.json(); })
-        .then(function (d) {
-          if (d.success) { window.location.href = "thank-you.html"; }
-          else { say(d.message || "Something went wrong. Please try WhatsApp.", false); if (submit) submit.disabled = false; }
-        })
-        .catch(function () { say("Network error. Please try again or use WhatsApp.", false); if (submit) submit.disabled = false; });
+  /* mobile menu */
+  var mb = document.getElementById("menuBtn"), mn = document.getElementById("mobileNav");
+  if (mb && mn) {
+    mb.addEventListener("click", function () {
+      var open = mn.classList.toggle("hidden") === false;
+      mb.setAttribute("aria-expanded", String(open));
+      mb.textContent = open ? "Close" : "Menu";
     });
-  });
-
-  // Testimonials
-  var host = document.getElementById("testimonial-list");
-  if (host && showEF) {
-    var render = function (items) {
-      host.innerHTML = "";
-      if (!items || !items.length) {
-        var d = document.createElement("div");
-        d.className = "md:col-span-3 rounded-2xl border border-dashed border-slate-300 p-8 text-center text-slate-600";
-        d.innerHTML = "<p class='font-semibold text-slate-800'>Client stories are on the way.</p><p class='mt-1 text-sm'>Have you worked with us? <a class='text-indigo-700 underline' href='contact.html'>Share your experience</a>.</p>";
-        host.appendChild(d); return;
-      }
-      items.slice(0, 6).forEach(function (it) {
-        var card = document.createElement("figure");
-        card.className = "rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200";
-        var stars = document.createElement("div"); stars.className = "text-amber-500";
-        var n = Math.max(0, Math.min(5, parseInt(it.rating || 5, 10)));
-        stars.textContent = "★".repeat(n) + "☆".repeat(5 - n);
-        stars.setAttribute("aria-label", n + " out of 5 stars");
-        var q = document.createElement("blockquote"); q.className = "mt-3 text-slate-700"; q.textContent = "“" + (it.text || "") + "”";
-        var cap = document.createElement("figcaption"); cap.className = "mt-4 text-sm font-semibold text-slate-900";
-        cap.textContent = (it.name || "Verified client") + (it.role ? " • " + it.role : "");
-        card.appendChild(stars); card.appendChild(q); card.appendChild(cap); host.appendChild(card);
-      });
-    };
-    var tc = C.testimonials || {};
-    if (tc.api) {
-      var url = tc.api + (tc.key ? (tc.api.indexOf("?") > -1 ? "&" : "?") + "key=" + encodeURIComponent(tc.key) : "");
-      fetch(url).then(function (r) { return r.json(); })
-        .then(function (d) { render(Array.isArray(d) ? d : (d.items || [])); })
-        .catch(function () { render(tc.items); });
-    } else { render(tc.items); }
   }
 
-  // FAQ accordions use native <details>; nothing needed.
+  /* current page highlight */
+  var here = (location.pathname.split("/").pop() || "index.html");
+  q("[data-nav]").forEach(function (a) { if (a.getAttribute("href") === here) a.setAttribute("aria-current", "page"); });
+
+  /* testimonials: from API or inline items, hidden when empty */
+  var tSec = document.getElementById("testimonials");
+  if (tSec) {
+    var T = C.testimonials || {};
+    var render = function (items) {
+      if (!showForm || !items || !items.length) { tSec.hidden = true; tSec.style.display = "none"; return; }
+      var grid = document.getElementById("testimonialGrid");
+      grid.innerHTML = "";
+      items.slice(0, 6).forEach(function (t) {
+        var d = document.createElement("figure");
+        d.className = "card p-6 m-0";
+        var bq = document.createElement("blockquote"); bq.className = "m-0 text-lg"; bq.textContent = "“" + (t.text || "") + "”";
+        var cp = document.createElement("figcaption"); cp.className = "mt-4 font-display font-extrabold";
+        cp.textContent = (t.name || "") + (t.role ? ", " + t.role : "");
+        d.appendChild(bq); d.appendChild(cp); grid.appendChild(d);
+      });
+      tSec.hidden = false; tSec.style.display = "";
+    };
+    if (T.api) {
+      fetch(T.api).then(function (r) { return r.json(); }).then(function (j) { render(Array.isArray(j) ? j : (j.items || [])); }).catch(function () { render(T.items); });
+    } else { render(T.items); }
+  }
+
+  /* enquiry form */
+  var f = document.getElementById("enqForm");
+  if (f) {
+    var out = document.getElementById("formOut");
+    var err = function (m, el) { out.innerHTML = '<div class="msg err" role="alert"></div>'; out.firstChild.textContent = m; if (el) el.focus(); };
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = f.elements.name.value.trim();
+      var ph = digits(f.elements.phone.value);
+      if (!name) { err("Please enter your name so we know who to call.", f.elements.name); return; }
+      if (ph.length < 10 || ph.length > 12) { err("Please enter a valid 10-digit mobile number.", f.elements.phone); return; }
+      var mps = q('input[name="marketplaces"]:checked', f).map(function (i) { return i.value; }).join(", ");
+      var need = (q('input[name="need"]:checked', f)[0] || {}).value || "";
+      var lines = ["New seller enquiry", "Name: " + name, "Phone: " + f.elements.phone.value.trim(),
+        "City: " + (f.elements.city.value.trim() || "-"), "Need: " + need,
+        "Marketplaces: " + (mps || "-"), "Products: " + (f.elements.message.value.trim() || "-")];
+      var text = lines.join("\n");
+      var btn = f.querySelector('button[type="submit"]');
+      if (C.w3formsToken) {
+        btn.disabled = true; btn.textContent = "Sending...";
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({ access_key: C.w3formsToken, subject: "New seller enquiry for " + (C.brandName || "Bazar Growth"), from_name: name, name: name, phone: f.elements.phone.value.trim(), city: f.elements.city.value.trim(), need: need, marketplaces: mps, message: text })
+        }).then(function (r) { return r.json(); }).then(function (j) {
+          if (j && j.success) { location.href = "thank-you.html"; }
+          else { btn.disabled = false; btn.textContent = "Request my free audit"; err("The form could not be sent. Please try again or message us on WhatsApp."); }
+        }).catch(function () { btn.disabled = false; btn.textContent = "Request my free audit"; err("Network problem. Please try again or message us on WhatsApp."); });
+      } else if (wa) {
+        window.open("https://wa.me/" + cc + wa + "?text=" + encodeURIComponent(text), "_blank", "noopener");
+        out.innerHTML = '<div class="msg" role="status"><strong>WhatsApp is opening with your enquiry.</strong> Press send there and we will reply soon.</div>';
+      } else {
+        err("This form is not connected yet. Please add a Web3Forms token or a WhatsApp number in config.js.");
+      }
+    });
+  }
+
+  /* ad budget planner (only on pages that include it) */
+  var pf = document.getElementById("planForm");
+  if (pf) {
+    var inr = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
+    var $ = function (id) { return document.getElementById(id); };
+    var num = function (v) { var n = parseFloat(v); return isFinite(n) ? n : 0; };
+    var plan = function () {
+      var price = Math.max(num($("pPrice").value), 1);
+      var margin = Math.min(Math.max(num($("pMargin").value), 1), 90);
+      var budget = Math.max(num($("pBudget").value), 0);
+      var acos = Math.max(num($("pAcos").value), 1);
+      $("pAcosOut").textContent = acos + "%";
+      var sales = budget * 100 / acos, orders = sales / price, profit = sales * margin / 100 - budget, diff = margin - acos;
+      $("oBeAcos").textContent = margin + "%";
+      $("oBeRoas").textContent = (100 / margin).toFixed(1) + "x";
+      $("oSales").textContent = "₹" + inr.format(sales);
+      $("oOrders").textContent = inr.format(orders);
+      $("oProfit").textContent = (profit < 0 ? "−" : "") + "₹" + inr.format(Math.abs(profit));
+      var v = $("pVerdict");
+      if (Math.abs(diff) < 0.5) { v.className = "verdict even"; v.textContent = "Break-even at this ACoS"; }
+      else if (diff > 0) { v.className = "verdict good"; v.textContent = "Profitable at this ACoS"; }
+      else { v.className = "verdict bad"; v.textContent = "Ads lose money at this ACoS"; }
+      var costs = 100 - margin, prof = Math.max(diff, 0), total = costs + acos + prof;
+      var w = function (x) { return (x / total * 100).toFixed(2) + "%"; };
+      $("pBar").innerHTML = '<span class="seg c" style="width:' + w(costs) + '"></span><span class="seg a" style="width:' + w(acos) + '"></span>' + (prof > 0 ? '<span class="seg p" style="width:' + w(prof) + '"></span>' : "");
+      $("pLegend").textContent = "Product, fees and shipping ₹" + costs.toFixed(0) + "  |  Ads ₹" + acos.toFixed(0) + (diff > 0 ? "  |  Profit ₹" + diff.toFixed(0) : diff < 0 ? "  |  Loss ₹" + Math.abs(diff).toFixed(0) : "  |  Profit ₹0");
+    };
+    ["pPrice", "pMargin", "pBudget", "pAcos"].forEach(function (id) { $(id).addEventListener("input", plan); });
+    pf.addEventListener("submit", function (e) { e.preventDefault(); });
+    plan();
+  }
 })();

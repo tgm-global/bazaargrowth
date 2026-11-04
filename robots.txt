@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /thank-you.html
 
-Sitemap: https://YOUR-GITHUB-USERNAME.github.io/budget-bazaar/sitemap.xml
+Sitemap: https://YOUR-USERNAME.github.io/YOUR-REPO/sitemap.xml
