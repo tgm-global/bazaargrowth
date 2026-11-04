@@ -1,0 +1,12 @@
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; padding-bottom: 64px; }
+.hero-bg { background: radial-gradient(1200px 500px at 85% -10%, rgba(251,191,36,.18), transparent 60%), linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); }
+.prose-bb p { margin-top: .9rem; line-height: 1.75; color: #334155; }
+.prose-bb h2 { margin-top: 2.25rem; font-size: 1.5rem; font-weight: 800; color: #0f172a; }
+.prose-bb h3 { margin-top: 1.5rem; font-size: 1.15rem; font-weight: 700; color: #1e293b; }
+.prose-bb ul { margin-top: .8rem; padding-left: 1.25rem; list-style: disc; color: #334155; line-height: 1.75; }
+.prose-bb a { color: #4338ca; text-decoration: underline; }
+details > summary { cursor: pointer; list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] summary .chev { transform: rotate(180deg); }
+:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
