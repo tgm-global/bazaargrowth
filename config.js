@@ -11,7 +11,7 @@
 window.SITE_CONFIG = {
 
   /* 1. BRAND / LOGO NAME (header, footer, page titles, meta tags, legal pages) */
-  brandName: "Bazar Growth",
+  brandName: "E-commerce Bazar",
   tagline: "E-commerce seller services across India",
 
   /* 2. PHONE NUMBER (10 digits, no spaces) */
@@ -22,10 +22,10 @@ window.SITE_CONFIG = {
   countryCode: "91",
 
   /* 4. EMAIL ID (leave blank to hide email everywhere) */
-  email: "",
+  email: "truegainmedia@gmail.com",
 
   /* 5. WEB3FORMS ACCESS TOKEN (from https://web3forms.com; leave blank to send enquiries to WhatsApp instead) */
-  w3formsToken: "",
+  w3formsToken: "59c94597-9ccf-4b50-9625-3e0b1d284bf8",
 
   /* 6. TESTIMONIALS API / KEY
         testimonialsApi: URL that returns a JSON list like [{ "name": "...", "role": "...", "text": "..." }]
