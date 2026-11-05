@@ -1,39 +1,56 @@
 /* ==========================================================================
-   GLOBAL CONFIGURATION HUB
-   Edit only this file. Every page reads these values, so changing one
-   value here updates the whole website.
+   GLOBAL CONFIGURATION HUB  (edit ONLY this file)
+   --------------------------------------------------------------------------
+   Every page of the website reads these values, so changing one value here
+   updates the brand, contact details, forms, testimonials and affiliate link
+   on ALL pages at once.
+
+   Easier way: open admin.html on your live site, fill the form, then click
+   "Publish to GitHub" (or copy the generated text into this file).
    ========================================================================== */
 window.SITE_CONFIG = {
-  // Brand shown in header, footer and forms
+
+  /* 1. BRAND / LOGO NAME (header, footer, page titles, meta tags, legal pages) */
   brandName: "Bazar Growth",
   tagline: "E-commerce seller services across India",
 
-  // Contact numbers: digits only, 10-digit Indian mobile numbers
+  /* 2. PHONE NUMBER (10 digits, no spaces) */
   phone: "8510813357",
+
+  /* 3. WHATSAPP NUMBER (10 digits, no spaces) */
   whatsapp: "8510813357",
   countryCode: "91",
 
-  // Email address. Leave blank to hide email everywhere.
+  /* 4. EMAIL ID (leave blank to hide email everywhere) */
   email: "",
 
-  // Web3Forms access token (https://web3forms.com). Leave blank until you have one.
-  // While blank, the enquiry form opens WhatsApp with the message pre-filled.
+  /* 5. WEB3FORMS ACCESS TOKEN (from https://web3forms.com; leave blank to send enquiries to WhatsApp instead) */
   w3formsToken: "",
 
-  // Testimonials. Use "api" for a JSON URL that returns an array of
-  // { name, role, text } objects, or fill "items" directly. Leave both
-  // empty to hide the testimonials section.
-  testimonials: {
-    api: "",
-    items: []
-    // Example item: { name: "Client name", role: "Seller, Surat", text: "Short quote" }
-  },
+  /* 6. TESTIMONIALS API / KEY
+        testimonialsApi: URL that returns a JSON list like [{ "name": "...", "role": "...", "text": "..." }]
+        testimonialsKey: optional key, sent as an Authorization: Bearer header
+        testimonialsItems: or type them here: [{ name: "Asha", role: "Seller, Surat", text: "Great service" }]
+        Leave all three empty to hide the testimonials section. */
+  testimonialsApi: "",
+  testimonialsKey: "",
+  testimonialsItems: [],
 
-  // Affiliate / partner link. Leave blank to hide the partner offer band.
+  /* 7. AFFILIATE LINK (leave blank to hide the partner offer band) */
   affiliateLink: "",
   affiliateLabel: "Recommended partner offer",
 
-  // Optional modules
+  /* 8. SOCIAL MEDIA LINKS (full https:// links; leave any blank to hide it) */
+  social: {
+    facebook: "",
+    instagram: "",
+    youtube: "",
+    linkedin: "",
+    twitter: "",
+    telegram: ""
+  },
+
+  /* Optional modules: true = show, false = hide */
   showPhoneAndWhatsapp: true,
   showEmailFormAndTestimonials: true
 };

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site Settings | Bazar Growth</title>
+<meta name="description" content="Owner tool to generate the config.js file that controls brand, contact details, form token, testimonials and affiliate link across the whole site.">
+<meta name="keywords" content="site settings">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#120B45">
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/admin.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bazar Growth">
+<meta property="og:title" content="Site Settings | Bazar Growth">
+<meta property="og:description" content="Owner tool to generate the config.js file that controls brand, contact details, form token, testimonials and affiliate link across the whole site.">
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/admin.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="assets/tw-config.js"></script>
+<link rel="stylesheet" href="assets/style.css">
+<script src="config.js"></script>
+</head>
+<body>
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-sun focus:text-navy focus:px-4 focus:py-2 focus:rounded-lg">Skip to content</a>
+<header class="sticky top-0 z-50 bg-navy text-white border-b-4 border-sun on-dark">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+    <a href="index.html" class="flex items-center gap-2 font-display font-black text-lg sm:text-xl tracking-tight whitespace-nowrap" aria-label="Bazar Growth home">
+      <span class="inline-block w-7 h-7 bg-sun border-2 border-white rounded-md -rotate-6 relative" aria-hidden="true"><span class="absolute inset-x-1 top-1/2 h-0.5 bg-navy"></span></span>
+      <span data-cfg="brand">Bazar Growth</span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-6" aria-label="Main">
+      <a data-nav class="navlink" href="index.html">Home</a>
+      <div class="dd"><a data-nav class="navlink" href="services.html">Services</a><div class="dd-menu"><a href="account-registration.html">Seller Account Registration</a><a href="listing-services.html">Product Listing &amp; Catalogue Creation</a><a href="a-plus-content.html">A+ Content &amp; Brand Stores</a><a href="ads-management.html">Marketplace Ads Management</a><a href="account-management.html">Sales Growth &amp; Account Management</a><a href="brand-registry.html">Brand Registry &amp; Category Approvals</a><a href="online-store-setup.html">Own Online Store Setup</a></div></div>
+      <div class="dd"><a data-nav class="navlink" href="cities.html">Cities</a><div class="dd-menu cols"><a href="ecommerce-seller-services-delhi.html">Delhi NCR</a><a href="ecommerce-seller-services-mumbai.html">Mumbai</a><a href="ecommerce-seller-services-bengaluru.html">Bengaluru</a><a href="ecommerce-seller-services-hyderabad.html">Hyderabad</a><a href="ecommerce-seller-services-chennai.html">Chennai</a><a href="ecommerce-seller-services-kolkata.html">Kolkata</a><a href="ecommerce-seller-services-pune.html">Pune</a><a href="ecommerce-seller-services-ahmedabad.html">Ahmedabad</a><a href="ecommerce-seller-services-jaipur.html">Jaipur</a><a href="ecommerce-seller-services-surat.html">Surat</a><a href="ecommerce-seller-services-ludhiana.html">Ludhiana</a><a href="ecommerce-seller-services-lucknow.html">Lucknow</a></div></div>
+      <a data-nav class="navlink" href="about.html">About</a>
+      <a data-nav class="navlink" href="contact.html">Contact</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a data-show="phone" data-cfg-href="tel" href="tel:+918510813357" class="btn btn-sun btn-sm call-btn">Call <span data-cfg="phone-text">+91 85108 13357</span></a>
+      <a data-show="whatsapp" data-cfg-href="wa" href="https://wa.me/918510813357" class="btn btn-mint btn-sm">WhatsApp</a>
+      <button id="menuBtn" type="button" class="btn btn-ghost btn-sm menu-btn" aria-expanded="false" aria-controls="mobileNav">Menu</button>
+    </div>
+  </div>
+  <nav id="mobileNav" class="hidden lg:hidden bg-white text-navy border-t-2 border-navy max-h-[72vh] overflow-y-auto" aria-label="Mobile">
+    <div class="max-w-7xl mx-auto px-4 py-4 grid gap-4">
+      <div class="flex flex-wrap gap-2"><a class="chip" href="index.html">Home</a><a class="chip" href="about.html">About</a><a class="chip" href="contact.html">Contact</a><a class="chip" href="cities.html">All cities</a></div>
+      <div><p class="font-display font-extrabold mb-1"><a href="services.html">Services</a></p><a class="block py-2 font-semibold" href="account-registration.html">Seller Account Registration</a><a class="block py-2 font-semibold" href="listing-services.html">Product Listing &amp; Catalogue Creation</a><a class="block py-2 font-semibold" href="a-plus-content.html">A+ Content &amp; Brand Stores</a><a class="block py-2 font-semibold" href="ads-management.html">Marketplace Ads Management</a><a class="block py-2 font-semibold" href="account-management.html">Sales Growth &amp; Account Management</a><a class="block py-2 font-semibold" href="brand-registry.html">Brand Registry &amp; Category Approvals</a><a class="block py-2 font-semibold" href="online-store-setup.html">Own Online Store Setup</a></div>
+      <div><p class="font-display font-extrabold mb-2">Cities</p><div class="flex flex-wrap gap-2"><a class="chip text-navy" href="ecommerce-seller-services-delhi.html">Delhi NCR</a><a class="chip text-navy" href="ecommerce-seller-services-mumbai.html">Mumbai</a><a class="chip text-navy" href="ecommerce-seller-services-bengaluru.html">Bengaluru</a><a class="chip text-navy" href="ecommerce-seller-services-hyderabad.html">Hyderabad</a><a class="chip text-navy" href="ecommerce-seller-services-chennai.html">Chennai</a><a class="chip text-navy" href="ecommerce-seller-services-kolkata.html">Kolkata</a><a class="chip text-navy" href="ecommerce-seller-services-pune.html">Pune</a><a class="chip text-navy" href="ecommerce-seller-services-ahmedabad.html">Ahmedabad</a><a class="chip text-navy" href="ecommerce-seller-services-jaipur.html">Jaipur</a><a class="chip text-navy" href="ecommerce-seller-services-surat.html">Surat</a><a class="chip text-navy" href="ecommerce-seller-services-ludhiana.html">Ludhiana</a><a class="chip text-navy" href="ecommerce-seller-services-lucknow.html">Lucknow</a></div></div>
+    </div>
+  </nav>
+</header>
+<main id="main">
+<section class="hero-bg on-dark"><div class="max-w-5xl mx-auto px-4 py-12"><nav aria-label="Breadcrumb" class="text-sm mb-5 text-white/80"><p><a class="underline hover:text-sun" href="index.html">Home</a> &rsaquo; <span aria-current="page">Site settings</span></p></nav>
+  <span class="kicker kicker-sun">Owner tool</span><h1 class="font-display font-black text-4xl md:text-5xl mt-4">Site settings</h1>
+  <p class="mt-3 text-lg text-white/90 max-w-3xl">Fill in the fields once. Copy the generated config.js and paste it over the config.js file in your GitHub repository. Every page of the website then updates together.</p></div></section>
+<section class="sec-light py-12"><div class="max-w-5xl mx-auto px-4 grid gap-8 lg:grid-cols-2 items-start">
+  <form id="settingsForm" class="card p-6 grid gap-5" autocomplete="off">
+    <div class="field"><label for="sBrand">Brand / logo name</label><input id="sBrand" type="text" placeholder="Bazar Growth" autocomplete="off"><small class="block mt-1 text-sm">Shown in the header, footer, page titles and meta tags.</small></div>
+    <div class="field"><label for="sTagline">Tagline</label><input id="sTagline" type="text" placeholder="E-commerce seller services across India" autocomplete="off"></div>
+    <div class="field"><label for="sPhone">Phone number</label><input id="sPhone" type="tel" placeholder="8510813357" autocomplete="off"><small class="block mt-1 text-sm">10 digits.</small></div>
+    <div class="field"><label for="sWhatsapp">WhatsApp number</label><input id="sWhatsapp" type="tel" placeholder="8510813357" autocomplete="off"><small class="block mt-1 text-sm">10 digits.</small></div>
+    <div class="field"><label for="sEmail">Email ID</label><input id="sEmail" type="email" placeholder="hello@yourdomain.com" autocomplete="off"><small class="block mt-1 text-sm">Leave blank to hide email everywhere.</small></div>
+    <div class="field"><label for="sToken">Web3Forms access token</label><input id="sToken" type="text" placeholder="Paste your access key" autocomplete="off"><small class="block mt-1 text-sm">Get it free at web3forms.com. Leave blank to send enquiries to WhatsApp instead.</small></div>
+    <div class="field"><label for="sTApi">Testimonials API URL</label><input id="sTApi" type="text" placeholder="https://" autocomplete="off"><small class="block mt-1 text-sm">A link that returns a JSON list of name, role and text. Optional.</small></div>
+    <div class="field"><label for="sTKey">Testimonials API key</label><input id="sTKey" type="text" placeholder="" autocomplete="off"><small class="block mt-1 text-sm">Optional. Sent as a Bearer key.</small></div>
+    <div class="field"><label for="sTItems">Testimonials typed here</label><textarea id="sTItems" placeholder="Name | Role | Quote (one per line)"></textarea><small class="block mt-1 text-sm">One per line in this form: Name | Role | Quote. Leave all testimonial fields empty to hide that section.</small></div>
+    <div class="field"><label for="sAff">Affiliate link</label><input id="sAff" type="text" placeholder="https://" autocomplete="off"><small class="block mt-1 text-sm">Leave blank to hide the partner offer band.</small></div>
+    <div class="field"><label for="sAffLabel">Affiliate offer title</label><input id="sAffLabel" type="text" placeholder="Recommended partner offer" autocomplete="off"></div>
+    <div class="field"><label for="sFb">Facebook link</label><input id="sFb" type="text" placeholder="https://facebook.com/yourpage" autocomplete="off"></div>
+    <div class="field"><label for="sIg">Instagram link</label><input id="sIg" type="text" placeholder="https://instagram.com/yourpage" autocomplete="off"></div>
+    <div class="field"><label for="sYt">YouTube link</label><input id="sYt" type="text" placeholder="https://youtube.com/@yourchannel" autocomplete="off"></div>
+    <div class="field"><label for="sLi">LinkedIn link</label><input id="sLi" type="text" placeholder="https://linkedin.com/company/yourpage" autocomplete="off"></div>
+    <div class="field"><label for="sTw">X (Twitter) link</label><input id="sTw" type="text" placeholder="https://x.com/yourpage" autocomplete="off"></div>
+    <div class="field"><label for="sTg">Telegram link</label><input id="sTg" type="text" placeholder="https://t.me/yourchannel" autocomplete="off"><small class="block mt-1 text-sm">Leave any social link blank to hide it.</small></div>
+    <div class="flex flex-wrap gap-3">
+      <label class="opt"><input id="sShowPhone" type="checkbox"> Show phone and WhatsApp</label>
+      <label class="opt"><input id="sShowForm" type="checkbox"> Show email, form and testimonials</label>
+    </div>
+  </form>
+  <div class="card p-6 grid gap-4 lg:sticky lg:top-24">
+    <h2 class="font-display font-black text-2xl">Your new config.js</h2>
+    <textarea id="cfgOut" readonly class="w-full min-h-[360px] p-3 border-2 border-navy rounded-xl font-mono text-xs bg-paper" aria-label="Generated config.js"></textarea>
+    <div class="flex flex-wrap gap-3"><button id="copyCfg" type="button" class="btn btn-sun">Copy config.js</button><button id="dlCfg" type="button" class="btn btn-white">Download config.js</button></div>
+    <details class="text-[0.95rem]"><summary class="cursor-pointer font-bold">Or paste it into GitHub by hand</summary><ol class="list-decimal pl-5 space-y-1 mt-2"><li>Open your GitHub repository and click <strong>config.js</strong>.</li><li>Click the pencil icon and select all text.</li><li>Paste the copied text and click <strong>Commit changes</strong>.</li></ol></details>
+    <div class="border-t-2 border-navy pt-4 grid gap-3">
+      <h2 class="font-display font-black text-2xl">Publish to GitHub</h2>
+      <p class="text-[0.95rem]">Saves the settings straight to your repository, so every page updates in about a minute.</p>
+      <div class="grid gap-3 sm:grid-cols-3 field">
+        <div><label for="gOwner">GitHub username</label><input id="gOwner" type="text" autocomplete="off"></div>
+        <div><label for="gRepo">Repository</label><input id="gRepo" type="text" autocomplete="off"></div>
+        <div><label for="gBranch">Branch</label><input id="gBranch" type="text" autocomplete="off"></div>
+      </div>
+      <div class="field"><label for="gToken">GitHub access token</label><input id="gToken" type="password" autocomplete="off"><small class="block mt-1 text-sm">Create a fine-grained token at GitHub &gt; Settings &gt; Developer settings, for this one repository only, with <strong>Contents: Read and write</strong>. The token is used once in your browser and is never saved. Use this on your own device only.</small></div>
+      <button id="pubGit" type="button" class="btn btn-mint w-fit">Publish to GitHub</button>
+      <div id="pubOut" aria-live="polite"></div>
+    </div>
+    <p class="text-sm">Nothing is saved or sent anywhere until you press Publish.</p>
+  </div></div></section>
+<script src="assets/admin.js"></script></main>
+<footer class="bg-navy text-white on-dark border-t-4 border-coral">
+  <div class="max-w-7xl mx-auto px-4 py-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <p class="font-display font-black text-2xl"><span data-cfg="brand">Bazar Growth</span></p>
+      <p class="mt-3 text-white/80" data-cfg="tagline">E-commerce seller services across India</p>
+      <p class="mt-3 text-white/80 text-sm">Seller account opening, listings, A+ content, ads and sales growth for Indian businesses.</p>
+      <ul class="mt-4 space-y-1 text-sm">
+        <li data-show="phone">Call: <a class="font-bold text-sun" data-cfg-href="tel" href="tel:+918510813357" data-cfg="phone-text">+91 85108 13357</a></li>
+        <li data-show="whatsapp">WhatsApp: <a class="font-bold text-sun" data-cfg-href="wa" href="https://wa.me/918510813357" data-cfg="whatsapp-text">+91 85108 13357</a></li>
+        <li data-show="email" hidden style="display:none">Email: <a class="font-bold text-sun" data-cfg-href="mail" href="#" data-cfg="email-text"></a></li>
+      </ul>
+      <div data-social class="mt-4 flex flex-wrap gap-2" hidden style="display:none"></div>
+    </div>
+    <div><h2 class="font-display font-extrabold text-lg text-sun">Services</h2><ul class="mt-3 space-y-2 text-white/85"><li><a class="hover:text-sun" href="account-registration.html">Seller Account Registration</a></li><li><a class="hover:text-sun" href="listing-services.html">Product Listing &amp; Catalogue Creation</a></li><li><a class="hover:text-sun" href="a-plus-content.html">A+ Content &amp; Brand Stores</a></li><li><a class="hover:text-sun" href="ads-management.html">Marketplace Ads Management</a></li><li><a class="hover:text-sun" href="account-management.html">Sales Growth &amp; Account Management</a></li><li><a class="hover:text-sun" href="brand-registry.html">Brand Registry &amp; Category Approvals</a></li><li><a class="hover:text-sun" href="online-store-setup.html">Own Online Store Setup</a></li></ul></div>
+    <div><h2 class="font-display font-extrabold text-lg text-sun">City pages</h2><ul class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-white/85"><li><a class="hover:text-sun" href="ecommerce-seller-services-delhi.html">Delhi NCR</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-mumbai.html">Mumbai</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-bengaluru.html">Bengaluru</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-hyderabad.html">Hyderabad</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-chennai.html">Chennai</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-kolkata.html">Kolkata</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-pune.html">Pune</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-ahmedabad.html">Ahmedabad</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-jaipur.html">Jaipur</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-surat.html">Surat</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-ludhiana.html">Ludhiana</a></li><li><a class="hover:text-sun" href="ecommerce-seller-services-lucknow.html">Lucknow</a></li></ul><p class="mt-3 text-sm"><a class="underline hover:text-sun" href="cities.html">See every city we serve</a></p></div>
+    <div><h2 class="font-display font-extrabold text-lg text-sun">Company</h2>
+      <ul class="mt-3 space-y-2 text-white/85">
+        <li><a class="hover:text-sun" href="index.html">Home</a></li><li><a class="hover:text-sun" href="about.html">About us</a></li>
+        <li><a class="hover:text-sun" href="services.html">All services</a></li><li><a class="hover:text-sun" href="contact.html">Contact</a></li>
+        <li><a class="hover:text-sun" href="privacy.html">Privacy policy</a></li><li><a class="hover:text-sun" href="terms.html">Terms of service</a></li>
+        <li><a class="hover:text-sun" href="disclaimer.html">Disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/20"><p class="max-w-7xl mx-auto px-4 py-5 text-xs text-white/70">Amazon, Flipkart, Meesho, Myntra, Nykaa, Ajio, JioMart, ONDC and Shopify are trademarks of their respective owners. <span data-cfg="brand">Bazar Growth</span> is an independent service provider and is not affiliated with, endorsed by or sponsored by any marketplace. See our <a class="underline" href="disclaimer.html">disclaimer</a>.</p></div>
+</footer>
+<div class="bottom-bar on-dark">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-3">
+    <p class="hidden md:block text-sm">&copy; <span data-cfg="year">2026</span> <span data-cfg="brand">Bazar Growth</span> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a> &middot; <a href="disclaimer.html">Disclaimer</a></p>
+    <div class="flex gap-2 w-full md:w-auto">
+      <a data-show="phone" data-cfg-href="tel" href="tel:+918510813357" class="btn btn-sun btn-sm flex-1 md:flex-none">Call now</a>
+      <a data-show="whatsapp" data-cfg-href="wa" href="https://wa.me/918510813357" class="btn btn-mint btn-sm flex-1 md:flex-none">WhatsApp</a>
+      <a href="contact.html" class="btn btn-coral btn-sm flex-1 md:flex-none">Free audit</a>
+    </div>
+  </div>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

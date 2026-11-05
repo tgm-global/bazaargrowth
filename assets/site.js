@@ -15,6 +15,32 @@
   q('[data-cfg="tagline"]').forEach(function (el) { el.textContent = C.tagline || ""; });
   q('[data-cfg="year"]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
+  /* apply brand name everywhere: visible text, title, meta tags, structured data */
+  var DEFAULT_BRAND = "Bazar Growth", brand = C.brandName || DEFAULT_BRAND;
+  var swap = function (s) { return s.split(DEFAULT_BRAND).join(brand); };
+  if (brand !== DEFAULT_BRAND) {
+    document.title = swap(document.title);
+    q('meta[name="description"],meta[name="keywords"],meta[property="og:title"],meta[property="og:description"],meta[property="og:site_name"]').forEach(function (m) { m.setAttribute("content", swap(m.getAttribute("content") || "")); });
+    q("[aria-label]").forEach(function (el) { el.setAttribute("aria-label", swap(el.getAttribute("aria-label"))); });
+    var tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), tn = [];
+    while (tw.nextNode()) { if (tw.currentNode.nodeValue.indexOf(DEFAULT_BRAND) > -1 && !/^(SCRIPT|STYLE)$/.test(tw.currentNode.parentNode.nodeName)) tn.push(tw.currentNode); }
+    tn.forEach(function (n) { n.nodeValue = swap(n.nodeValue); });
+  }
+  var S = C.social || {};
+  var sNames = { facebook: "Facebook", instagram: "Instagram", youtube: "YouTube", linkedin: "LinkedIn", twitter: "X (Twitter)", telegram: "Telegram" };
+  var sKeys = Object.keys(sNames).filter(function (k) { return S[k]; });
+  q('script[type="application/ld+json"]').forEach(function (s) {
+    var t = s.textContent;
+    if (brand !== DEFAULT_BRAND) t = swap(t);
+    if (phone) t = t.split("+918510813357").join("+" + cc + phone);
+    try {
+      var j = JSON.parse(t);
+      if (j["@type"] === "ProfessionalService" && sKeys.length) { j.sameAs = sKeys.map(function (k) { return S[k]; }); }
+      t = JSON.stringify(j);
+    } catch (err) { /* keep text as is */ }
+    s.textContent = t;
+  });
+
   /* phone, whatsapp, email values */
   q('[data-cfg="phone-text"]').forEach(function (el) { el.textContent = fmt(phone); });
   q('[data-cfg="whatsapp-text"]').forEach(function (el) { el.textContent = fmt(wa); });
@@ -37,6 +63,19 @@
   q('[data-cfg-href="affiliate"]').forEach(function (el) { el.href = C.affiliateLink || "#"; el.target = "_blank"; el.rel = "noopener sponsored"; });
   q('[data-cfg="affiliate-label"]').forEach(function (el) { el.textContent = C.affiliateLabel || ""; });
 
+  /* social media links */
+  q("[data-social]").forEach(function (box) {
+    box.innerHTML = "";
+    sKeys.forEach(function (k) {
+      var l = document.createElement("a");
+      l.href = S[k]; l.target = "_blank"; l.rel = "noopener me"; l.className = "chip text-navy"; l.textContent = sNames[k];
+      l.setAttribute("aria-label", (C.brandName || DEFAULT_BRAND) + " on " + sNames[k]);
+      box.appendChild(l);
+    });
+    setVis(box, sKeys.length > 0);
+  });
+  q("[data-social-card]").forEach(function (c) { setVis(c, sKeys.length > 0); });
+
   /* mobile menu */
   var mb = document.getElementById("menuBtn"), mn = document.getElementById("mobileNav");
   if (mb && mn) {
@@ -54,7 +93,7 @@
   /* testimonials: from API or inline items, hidden when empty */
   var tSec = document.getElementById("testimonials");
   if (tSec) {
-    var T = C.testimonials || {};
+    var T = { api: C.testimonialsApi || (C.testimonials || {}).api || "", key: C.testimonialsKey || "", items: C.testimonialsItems || (C.testimonials || {}).items || [] };
     var render = function (items) {
       if (!showForm || !items || !items.length) { tSec.hidden = true; tSec.style.display = "none"; return; }
       var grid = document.getElementById("testimonialGrid");
@@ -70,7 +109,7 @@
       tSec.hidden = false; tSec.style.display = "";
     };
     if (T.api) {
-      fetch(T.api).then(function (r) { return r.json(); }).then(function (j) { render(Array.isArray(j) ? j : (j.items || [])); }).catch(function () { render(T.items); });
+      fetch(T.api, T.key ? { headers: { "Authorization": "Bearer " + T.key } } : undefined).then(function (r) { return r.json(); }).then(function (j) { render(Array.isArray(j) ? j : (j.items || [])); }).catch(function () { render(T.items); });
     } else { render(T.items); }
   }
 
